@@ -19,67 +19,68 @@ Los siguientes comandos son de ex, pero al ser muy básicos los dejo al principi
 - `:w` Guarda los cambios del fichero sin salir de el.
 - `:w filename` Guarda los cambios realizados en el nuevo fichero "filename"
 - `:w %.new` El % almacena el nombre del fichero actual, por lo tanto el comando crearía un fichero nuevo con el mismo nombre que el actual pero terminado en .new.
-- :wa Guarda todos los ficheros abiertos.
-- :10,20 w filename Guarda las líneas de la 10 a la 20 en el archivo "filename"
-- :30,39 w >>filename Añade las líneas al final del archivo "filename".
-- :r filename Inserta el contenido de "filename" a partir del cursor en el archivo que se está editando actualmente.
-- :q Sale del fichero en edición sin guardar cambios. Si hay cambios vi no nos dejará salir sin salvar cambios o sin forzar la salida.
-- :q! Fuerza la salida sin salvar cambios. Esto se usa cuando se han hecho cambios y se quieren descartar
-- :wq Guarda y sale del archivo. Escribe el fichero aunque no se hayan hecho cambios.
-- :x Guarda el fichero solo si hay cambios y sale del mismo.
-- :w! y :wq! Guarda el fichero aunque hayamos entrado en solo lectura. También guardaría un fichero sobre el que no tuviesemos permisos de escritura si está en un directorio sobre el que sí que tenemos permisos.
-- :e! deshace los cambios hasta el anterior guardado.
-- :e filename Cierra el archivo actualmente abierto y abre el archivo "filename"
-- :e # Edita el fichero anteriormente abierto.
+- `:wa` Guarda todos los ficheros abiertos.
+- `:10,20 w filename` Guarda las líneas de la 10 a la 20 en el archivo "filename"
+- `:30,39 w >>filename` Añade las líneas al final del archivo "filename".
+- `:r filename` Inserta el contenido de "filename" a partir del cursor en el archivo que se está editando actualmente.
+- `:q` Sale del fichero en edición sin guardar cambios. Si hay cambios vi no nos dejará salir sin salvar cambios o sin forzar la salida.
+- `:q!` Fuerza la salida sin salvar cambios. Esto se usa cuando se han hecho cambios y se quieren descartar
+- `:wq` Guarda y sale del archivo. Escribe el fichero aunque no se hayan hecho cambios.
+- `:x` Guarda el fichero solo si hay cambios y sale del mismo.
+- `:w!` y `:wq!` Guardan el fichero aunque hayamos entrado en solo lectura. También guardaría un fichero sobre el que no tuviesemos permisos de escritura si está en un directorio sobre el que sí que tenemos permisos.
+- `:e!` deshace los cambios hasta el anterior guardado.
+- `:e` filename Cierra el archivo actualmente abierto y abre el archivo "filename"
+- `:e #` Edita el fichero anteriormente abierto.
 
         > # Equivale al fichero anterior.
         > % Equivale al fichero actual.
 
-- :ar Muestra los ficheros actualmente abiertos, equivalente a :args
-- :n Salta al siguiente archivo abierto (si lo hay).
-- :n file1 file2 Abre los dos nuevos ficheros file1 y file2 en vi.
-- :prev Vuelve al anterior fichero en edición.
+- `:ar` Muestra los ficheros actualmente abiertos, equivalente a :args
+- `:n` Salta al siguiente archivo abierto (si lo hay).
+- `:n file1 file2` Abre los dos nuevos ficheros file1 y file2 en vi.
+- `:prev` Vuelve al anterior fichero en edición.
 
-================================================================================
-EJECUTAR COMANDOS DE SHELL:
-:!cmd Ejecuta el comando "cmd" y muestra el resultado.
-:r!cmd El comando r visto anteriormente nos dejaría introducir el contenido de
-	otro fichero en la posición actual. Si en vez de poner el nombre de un
-	fichero, ponemos !cmd ejecutamos el comando cmd y la salida del comando
-	aparecerá escrita en el fichero. por ejemplo:
-		:r!date Insertaría la fecha dentro del fichero.
-:sh Abre una shell, cuando hacemos ^d volvemos a vi
-También podemos hacer ^z y poner vi en bacground
+EJECUTAR COMANDOS DE SHELL
+==========================
 
-================================================================================
-MOVIMIENTO:
-h se mueve a la izquierda
-l se mueve a la derecha
-j se mueve hacia abajo
-k se mueve hacia arriba
-w se mueve hacia adelante de palabra en palabra
-W se mueve hacia adelante de espacio a espacio
-b se mueve hacia atrás de palabra en palabra
-B se mueve hacia atrás de espacio a espacio
-e se mueve hasta el último caracter de una palabra
-0 se mueve al principio de la línea
-$ se mueve al final de la línea
-gg se mueve al principio de la página
-G se mueve al final de la página
-7G se mueve a la línea 7 (y 7gg también)
-^F Avanza una pantalla
-^B Retrocede una pantalla
-^D Avanza media pantalla
-^U Retrocede media pantalla
-z[intro] Coloca la línea donde está el cursor arriba del todo
-z. Coloca la línea en la que está el cursor en el medio.
-z. Coloca la línea en la que está el cursor abajo.
-z10 Coloca la línea donde está el cursor como la décima fila.
-10z Coloca la línea 10 del texto en la primera fila.
-H Mueve el cursor a la primera línea de la pantalla.
-	10H Mueve el cursor diez líneas por debajo de la primera visible.
-L Mueve el cursor a la última línea de la pantalla.
-	10L Mueve el cursor diez líneas por encima de la última visible.
+- `:!cmd` Ejecuta el comando "cmd" y muestra el resultado.
+- `:r!cmd` El comando r visto anteriormente nos dejaría introducir el contenido de otro fichero en la posición actual. Si en vez de poner el nombre de un fichero, ponemos !cmd ejecutamos el comando cmd y la salida del comando aparecerá escrita en el fichero. por ejemplo:
+
+      :r!date Insertaría la fecha dentro del fichero.
+- `:sh` Abre una shell, cuando hacemos ^d volvemos a vi. También podemos hacer ^z y poner vi en bacground
+
+
+MOVIMIENTO
+==========
+- h se mueve a la izquierda
+- l se mueve a la derecha
+- j se mueve hacia abajo
+- k se mueve hacia arriba
+- w se mueve hacia adelante de palabra en palabra
+- W se mueve hacia adelante de espacio a espacio
+- b se mueve hacia atrás de palabra en palabra
+- B se mueve hacia atrás de espacio a espacio
+- e se mueve hasta el último caracter de una palabra
+- 0 se mueve al principio de la línea
+- $ se mueve al final de la línea
+- gg se mueve al principio de la página
+- G se mueve al final de la página
+- 7G se mueve a la línea 7 (y 7gg también)
+- ^F Avanza una pantalla
+- ^B Retrocede una pantalla
+- ^D Avanza media pantalla
+- ^U Retrocede media pantalla
+- z[intro] Coloca la línea donde está el cursor arriba del todo
+- z. Coloca la línea en la que está el cursor en el medio.
+- z. Coloca la línea en la que está el cursor abajo.
+- z10 Coloca la línea donde está el cursor como la décima fila.
+- 10z Coloca la línea 10 del texto en la primera fila.
+- H Mueve el cursor a la primera línea de la pantalla.
+
+      10H Mueve el cursor diez líneas por debajo de la primera visible.
+- L Mueve el cursor a la última línea de la pantalla.
+      
+      10L Mueve el cursor diez líneas por encima de la última visible.
 M Mueve el cursor a la línea del medio de la pantalla.
 + Mueve el cursor al primer carácter de la siguiente línea (intro también)
 - Mueve el cursor al primer carácter de la anterior línea
