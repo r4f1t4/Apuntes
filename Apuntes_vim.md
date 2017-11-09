@@ -90,22 +90,17 @@ M Mueve el cursor a la línea del medio de la pantalla.
 ) Mueve al principio de la siguiente frase.
 { Mueve al principio del párrafo
 } Mueve al principio del siguiente párrafo
-[[ Mueve al principio de la sección.
-]] Mueve al principio de la siguiente sección.
-% Si el cursor se encuentra sobre un bracket de inicio (, [, { o < al pulsar %
-	se mueve automáticamente hasta el correspondiente bracket de cierre. y
-	viceversa.
-	Si el cursor se encuentra en una línea donde más adelante hay un
-	bracket, se mueve al bracket de inicio y si el único bracket que hay mas
-	adelante en la misma línea es un bracket de final se mueve a el.
+`[[` Mueve al principio de la sección.
+`]]` Mueve al principio de la siguiente sección.
+`%` Si el cursor se encuentra sobre un bracket de inicio `(, [, { o <` al pulsar % se mueve automáticamente hasta el correspondiente bracket de cierre y viceversa. Si el cursor se encuentra en una línea donde más adelante hay un bracket, se mueve al bracket de inicio y si el único bracket que hay mas adelante en la misma línea es un bracket de final se mueve a el.
 mx Crea un marcador y lo almacena en la letra x.
 'x Lleva el cursor al primér caracter de la línea donde está el marcador x
-`x Lleva el cursor al marcador x
-`` Vuelve a la posición anterior (anterior edición, busqueda, marcador...)
+`` `x ``Lleva el cursor al marcador x
+- \`\`  Vuelve a la posición anterior (anterior edición, busqueda, marcador...)
 '' Vuelve al principio de la línea de la posición anterior.
 
-================================================================================
-BUSQUEDAS:
+BUSQUEDAS
+=========
 / Buscar hacia adelante.
 ? Buscar hacia atrás.
 * Busca la palabra que se encuentra debajo del cursor.
@@ -120,8 +115,8 @@ Tx Mueve el cursor al caracter anterior al carácter x hacia atrás.
 dfx Borra hasta la próxima aparición del caracter x.
 d/palabra Borra hasta la próxima aparición de la palabra "palabra".
 
-================================================================================
-AÑADIR Y REEMPLAZAR TEXTO:
+AÑADIR Y REEMPLAZAR TEXTO
+=========================
 i inserta texto desde la izquierda del cursor.
 I inserta texto al principio de la línea.
 a inserta texto desde la derecha del cursor.
@@ -152,13 +147,14 @@ p pega texto, vi guarda un buffer, por lo que 3p pegaría lo que se hubiese
 P Pega texto antes del cursor.
 J une dos líneas (substituye el retorno de carro por un espacio)
 
-================================================================================
-REPETIR COMANDOS Y DESHACER CAMBIOS:
+REPETIR COMANDOS Y DESHACER CAMBIOS
+===================================
 u deshace el último comando.
 . repite el anterior comando.
 
-================================================================================
-TRABAJAR CON BUFFERS:
+
+TRABAJAR CON BUFFERS
+====================
 Los buffers permiten tener almacenado texto copiado o cortado anteriormente
 y pegarlo en el lugar o momento en el que se prefiera.
 Los últimos 9 borrados se almacenan en los buffers del 1 al 9. Además, a la hora
@@ -178,8 +174,8 @@ pero si la letra está en minúsculas, lo añade al final.
 "idw Corta la palabra actual y la almacena en el buffer i. 
 "Iy) Añade al buffer I desde el cursor hasta el final de la frase.
 
-================================================================================
-COMANDOS SET:
+COMANDOS SET
+============
 :set commando activa y :set nocomando desactiva
 :set wm=10 Activa el retorno de carro auto en el caracter 10 caracteres antes
 	del final de la línea.
@@ -212,14 +208,13 @@ COMANDOS SET:
 	dado. Si se especifica un número relativo (+1) colorea una columna
 	relativa al textwidth definido. Se puede abreviar como :set cc=80.
 :set all muestra todas las opciones que vi está usando en este momento.
-:set spell spelllanguage=es`_es activa chequeo de ortografía en español.
+:set spell spelllang=es_es activa chequeo de ortografía en español.
 :set muestra las opciones que se hayan modificado explicitamente durante la
 	sesión o se hayan introducido en un fichero .exrc
 :set comando? Muestra el valor actual del comando.
 
-================================================================================
-OTROS COMANDOS:
-
+OTROS COMANDOS
+==============
 Vi permite definir abreviaturas que se extenderan automáticamente en el momento
 en el que se escriban, por ejemplo:
 	:ab rhce RedHat Certified Engineer
@@ -266,9 +261,9 @@ el comando sin los ':' iniciales y guardarlo en un buffer con nombre del mismo
 modo. Para ejecutarlo, escribir :@l suponiendo que lo hayamos introducido en el
 buffer l.
 	
+COMANDOS BÁSICOS EN ex
+======================
 
-================================================================================
-COMANDOS BÁSICOS EN ex:
 El comando ex es un editor de líneas sobre el que está montado vi. Cuando desde
 el modo comando ponemos el caracter : estamos especificando que lo que vamos a
 introducir es un comando de ex.
@@ -371,9 +366,8 @@ comillas dobles. por ejemplo:
 El anterior comando cambiaría todas las apariciónes del path /home/user1/bin/
 por /usr/local/bin/
 
-================================================================================
 COMANDOS DE VENTANAS DE VIM
-
+===========================
 Si la versión de vi que tenemos es vim (vi improved) existen multidud de 
 comandos nuevos que podemos usar, una de las funcionalidades que nos da vim es
 la posibilidad de tener ventanas dentro de la propia ventana de vim. para ello
@@ -465,9 +459,9 @@ repetirlo n veces, podemos precedero del comando windo:
 :windo cmd
 :windo set ai
 
-================================================================================
-USO DE PESTAÑAS EN VIM:
 
+USO DE PESTAÑAS EN VIM
+======================
 Aparte de multiples ventanas dentro de la misma pantalla de vim, podemos tener
 múltiples pantallas virtuales abiertas en pestañas (tabs). Esto nos permite
 tener varias "sesiones" de trabajo abiertas al mismo tiempo con múltiples
@@ -488,10 +482,8 @@ nueva, crean una pestaña, por ejemplo:
 ^Wgf Busca un fichero con el mismo nombre que la palabra bajo el cursor en el
 	path y si lo encuentra lo abre en una nueva pestaña.
 
-
-================================================================================
-BUFFERS:
-
+BUFFERS
+=======
 Ahora que manejamos ventanas dentro de vim, lo mas probable es que empecemos a
 tener múltiples archivos al mismo tiempo, algunos de los cuales pueden ser
 visibles o no. Para ver los archivos que tenemos abiertos ahora mismo podemos
