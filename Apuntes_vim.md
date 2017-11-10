@@ -13,7 +13,7 @@ FORMAS DE ABRIR UN FICHERO
 
 FORMAS DE SALVAR (o no) UN FICHERO
 ==================================
-- **ZZ** Salva un fichero y sale.
+- `ZZ` Salva un fichero y sale.
 
 Los siguientes comandos son de ex, pero al ser muy básicos los dejo al principio
 - `:w` Guarda los cambios del fichero sin salir de el.
@@ -32,8 +32,8 @@ Los siguientes comandos son de ex, pero al ser muy básicos los dejo al principi
 - `:e` filename Cierra el archivo actualmente abierto y abre el archivo "filename"
 - `:e #` Edita el fichero anteriormente abierto.
 
-        > # Equivale al fichero anterior.
-        > % Equivale al fichero actual.
+        # Equivale al fichero anterior.
+        % Equivale al fichero actual.
 
 - `:ar` Muestra los ficheros actualmente abiertos, equivalente a :args
 - `:n` Salta al siguiente archivo abierto (si lo hay).
@@ -126,13 +126,12 @@ AÑADIR Y REEMPLAZAR TEXTO
 - `r` reemplaza el caracter bajo el cursor.
 - `R` reemplaza multiples caracteres empezando por el de debajo del cursor
 - `c` cambia el texto, dependiendo del segundo caracter puede cambiar:
-
-	  **cw** hasta el final de la palabra
-      **c2b** hacia atrás, dos palabras
-      **c$** hasta el final de la línea
-      **C** es equivalente a **c$**
-      **c0** hasta el principio de la línea
-      **cc** cambia una línea completa
+    - `cw` hasta el final de la palabra
+    - `c2b` hacia atrás, dos palabras
+    - `c$` hasta el final de la línea
+    - `C` es equivalente a `c$`
+    - `c0` hasta el principio de la línea
+    - `cc` cambia una línea completa
 - `s` substituye caracteres, borra el carácter de debajo y entra en insert
 - `S` substituye la línea completa y entra en insert.
 - `~` intercambia un caracter entre mayusculas y minusculas.
