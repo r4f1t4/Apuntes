@@ -1,9 +1,5 @@
 Chef Lesson: Managing node run-lists
 ===================================
-This is the managing node run-list lesson in **Markdown**.
-
-It will serve as a lesson of __Chef__ and a practice of _Markdown_
-> I hope it goes well.
 
 Adding a run list from the _knife_ command
 ------------------------------------------
