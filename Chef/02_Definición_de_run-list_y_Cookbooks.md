@@ -17,6 +17,7 @@ Si una recipe se asigna a un nodo más de una vez, Chef sólo la ejecutará una 
 Include_recipe
 --------------
 Una recipe puede llamar a otra recipe para que se ejecute desde un cookbook diferente. La nomenclatura sería la siguiente:
+
       include_recipe 'cookbook_name::recipe_name'
 
 Cookbooks
