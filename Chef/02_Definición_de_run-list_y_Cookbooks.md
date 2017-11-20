@@ -88,3 +88,7 @@ La estructura del cookbook creado es la siguiente:
         └── default
             └── default_test.rb
 ```
+
+Una vez tenemos nuestro cookbook creado y definido lo subimos al servidor de Chef con el comando
+
+    knife cookbook upload cookbookName
