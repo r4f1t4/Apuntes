@@ -45,3 +45,10 @@ Ejemplo de plantilla de rol:
   }
 }
 ```
+
+Al salir del editor el comando automáticamente subirá el fichero al servidor Chef sin dejar copia local. Si quisiesemos editar el rol, desde el comando knife usaríamos:
+
+    knife role edit roleName
+Y se nos volvería a abrir el archivo anterior para su modificación.
+
+Una gran ventaja de los roles es que nos permiten modificar la run-list de todos los servidores del rol desde un mismo punto. Es decir, si editamos un rol, la próxima vez que el `chef-client` se ejecute en el servidor recogerá la versión más actualizada del rol.
