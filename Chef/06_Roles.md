@@ -23,7 +23,7 @@ Para crear un rol, nos vamos a la carpeta de nuestra workstation donde tenemos c
 Esto nos crea la plantilla del rol y nos la abre en el editor que tengamos definido por defecto. En la plantilla inicialmente sólo vamos a editar el run-list, y con eso ya podremos asignar el rol a los equipos que deseemos.
 Ejemplo de plantilla de rol:
 
-``` json
+```json
 {
   "name": "roleName",
   "description": "",
