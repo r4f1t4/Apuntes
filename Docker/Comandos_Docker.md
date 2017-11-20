@@ -6,7 +6,7 @@ Comandos generales
 ------------------
  - `docker info` Muestra información acerca de docker en el sistema.
  - `docker events` Este comando se queda corriendo en el terminal y muestra a partir de ese momento los eventos que se producen en el sistema docker. (start, connect, create, kill die, disconnect, stop...)
- - `docker events --since '1h'` Identico al comando anterior, pero muestra los eventos que han sucedido en la última hora. El comando no termina solo, se queda mostrando los siguientes eventos que suceden por consola.
+ - `docker events --since '1h'` Idéntico al comando anterior, pero muestra los eventos que han sucedido en la última hora. El comando no termina solo, se queda mostrando los siguientes eventos que suceden por consola.
  - `docker events --filter event=attach` filtra los eventos que se muestran. En este caso se filtra por evento y de entre todos los eventos por "attach."
  - `docker login --username user` Comando para loguearte en el dockerhub. Necesario para hacer push o pull de repositorios privados.
  - `docker logout` Te desloguea del dockerhub.
@@ -14,16 +14,16 @@ Comandos generales
 
 Comandos de imágenes
 ---------------------
-En Docker, una _imagen_ es un paquete de una aplicación con sus correspondientes librerías, mas las librerías del S.O. necesarias para comunicarse con el kernel linux que corre en el sistema operativo host. Las imágenes se pueden ejecutar, al hacerlo se crea un _container_ que inicialmente es una copia de la imágen, aunque luego se puede ir modificando. 
- - `docker search foo` Busca enel docker hub, _El repositorio oficial de imágenes de Docker,_ una imagen con nombre _foo_
+En Docker, una _imagen_ es un paquete de una aplicación con sus correspondientes librerías, mas las librerías del S.O. necesarias para comunicarse con el kernel linux que corre en el sistema operativo host. Las imágenes se pueden ejecutar, al hacerlo se crea un _container_ que inicialmente es una copia de la imagen, aunque luego se puede ir modificando. 
+ - `docker search foo` Busca en el docker hub, _El repositorio oficial de imágenes de Docker,_ una imagen con nombre _foo_
  - `docker pull foo` Se descarga la imagen _foo_ desde el repositorio. Si no se especifica la versión por defecto descarga la versión _latest_.
  - `docker pull foo:latest` Este comando resulta equivalente al anterior.
  - `docker pull foo:bar` Se descarga la versión _bar_ de la imagen _foo_
  - `docker pull user/foo:bar` Se descarga la versión _bar_ de la imagen _foo_ del usuario _user_. Cuando subimos nuestras imágenes a DockerHub, ya sean públicas o privadas, el nombre de cada imagen irá precedido de nuestro nombre de usuario. Las imágenes que hay en DockerHub sin nombre de usuario son imágenes oficiales.
  - `docker images` Lista las imágenes que hay en el sistema.
  - `docker run foo` Ejecuta la imagen _foo._
- `docker inspect image` Saca un json con todas las variables y el estado de una imagen.
- - `docker rmi image:tag` Borra una imágen que no tenga container asociados En vez de _image:tag_ se puede usar el _ImageID_
+ `docker inspect image` Saca un JSON con todas las variables y el estado de una imagen.
+ - `docker rmi image:tag` Borra una imagen que no tenga container asociados En vez de _image:tag_ se puede usar el _ImageID_
  - `docker rmi -f image:tag` Con -f forzamos el borrado de la imagen aunque tenga containers asociados. Esto no borraría los containters, y se podrían seguir usando, pero quedarían huérfanos.
  - `docker rmi -f ID` Si borramos imágenes por ID y hay más de una imagen con el mismo ID necesitamos poner -f; realmente sería la misma imagen con distinto nombre: ej. latest & centos6
  - `docker build -t usuario/nombre:tag path` Crea una nueva imagen con el nombre dado usando el dockerfile que se encuentre en el path "directorio"
@@ -33,8 +33,8 @@ En Docker, una _imagen_ es un paquete de una aplicación con sus correspondiente
  - `docker load --input  inputImageFile.tar` Carga la imagen previamente salvada. El comando output no comprime las imágenes, pero el comando input es capaz de leer imágenes comprimidas como gz o como bz2.
  - `docker load < inputImageFile.tar` Equivalente al comando anterior.
  - `docker history --no-trunc image` Muestra la historia de la imagen. Como fue creada y los comandos que se ejecutaron para crearla. El modificador `--no-trun` nos permite ver los comandos y los id de los containers al completo, sin ellos solo aparecería el principio.
- - `docker tag imageId newimage:version` Este comado nos deja crear nuevos tags para imágenes que existan en el sistema. No borra la imagen anterior. Puede servir para marcar una imagen como _latest_ o para etiquetar una imagen en función del host donde va a ser instalada, etc.
- - `docker push imageName:version` Comando para hacer push de una imagen a un repositiorio en el que estemos logueados. Es necesario que el _imagename_ coincida con el nombre del reposiorio.
+ - `docker tag imageId newimage:version` Este comando nos deja crear nuevos tags para imágenes que existan en el sistema. No borra la imagen anterior. Puede servir para marcar una imagen como _latest_ o para etiquetar una imagen en función del host donde va a ser instalada, etc.
+ - `docker push imageName:version` Comando para hacer push de una imagen a un repositorio en el que estemos logueados. Es necesario que el _imagename_ coincida con el nombre del repositorio.
 
 Opciones de run
 ---------------
