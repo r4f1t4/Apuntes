@@ -46,7 +46,7 @@ Ejemplo de plantilla de rol:
 }
 ```
 
-Al salir del editor el comando automáticamente subirá el fichero al servidor Chef sin dejar copia local. Si quisiesemos editar el rol, desde el comando knife usaríamos:
+Al salir del editor el comando automáticamente subirá el fichero al servidor Chef sin dejar copia local. Si quisiésemos editar el rol, desde el comando knife usaríamos:
 
     knife role edit roleName
 Y se nos volvería a abrir el archivo anterior para su modificación.

@@ -34,6 +34,7 @@ end
 
 Búsquedas en Chef
 =================
+Para hacer una búsqueda en Chef, debemos especificar el índice por el que queremos buscar y a continuación las _keys_ y patrones por los que queremos filtrar dentro del índice.
 
 Tipos de índices
 ----------------
@@ -44,6 +45,8 @@ En chef hay 5 típos de índices _(indexes)_
 - `node`
 - `role`
 
+Búsqueda desde el comando _knife_
+---------------------------------
 Para hacer una búsqueda desde knife usamos el siguiente comando
 
     knife search [INDEX] "key:patron"
@@ -63,3 +66,21 @@ Knife search tiene los siguientes modificadores
 - `-a attribute` nos muestra el atributo seleccionado de los nodos que concuerdan con la búsqueda.
 - `-r` Nos muestra las run-lists.
 Por ejemplo, `knife search '*:*' -r` es equivalente a `knife search '*:*' -a run_list`
+
+Búsquedas en recipes
+--------------------
+Para usar búsquedas en recipes, primero usamos la siguiente sintaxis:
+
+    searchResults = search('index', 'key:pattern')
+
+El anterior comando almacena los resultados de la búsqueda en la variable `searchResults`. Esa variable la podemos iterar usando la sintaxis propia de ruby para elegir que hacer con los resultados. Por ejemplo:
+
+```ruby
+werversWithMyRole = search('node', 'role:myRole')
+
+werversWithMyRole.each do |server|
+	puts server
+end
+```
+
+El anterior bloque mostraría durante la ejecución de la recipe todos los servidores con el rol "myRole" asignado. 
