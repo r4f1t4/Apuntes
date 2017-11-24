@@ -7,7 +7,7 @@ El comando _kitchen_ admite las siguientes variables:
  - `kitchen init` Crea una plantilla .kitchen.yml
  - `kitchen create` Nos permite crea una o más instancias
  - `kitchen list` Lista las instancias
- - `kitchen converge` 
+ - `kitchen converge` Prepara el entorno donde se va a ejecutar Chef para dejarlo en un estado inicial.
  - `kitchen verify` Verifica las instancias especificadas
  - `kitchen destroy` _Destruye_ las instancias especificadas
  - `kitchen test` Equivale a ejecutar los siguientes comandos uno tras otro en este orden:
@@ -40,4 +40,11 @@ suites:
     excludes:
       - debian-7.1.0
 ```
+
+Instalación de _kitchen_
+------------------------
+El comando kitchen no viene instalado por defecto, por lo que para usarlo debemos instalarlo. Hay varias formas, una es descargalo desde chef e instalarlo manualmente, otra es usando la herramienta `gem` de ruby para instalar nuevos paquetes. Por ejemplo, el siguiente comando para instalará la versión de _kitchen_ preparada para usar docker.
+
+    chef exec gem install kitchen-docker
+
 
