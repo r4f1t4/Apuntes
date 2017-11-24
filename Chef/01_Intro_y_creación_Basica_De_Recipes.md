@@ -154,4 +154,6 @@ cookbook_file "/etc/httpd/conf/httpd.conf" do
 end
 ```
 
-
+Eliminar recursos de una recipe
+-------------------------------
+Si simplemente borramos un recurso de una receta, la próxima vez que se ejecute la receta Chef no controlará el recurso. Esto no significa que vaya a desinstalarse si es un paquete, o pararse si es un servicio; lo que significa es que se quedará en el último estado configurado hasta que algo exterior a Chef lo modifique. Si deseamos quitar un recurso porque ya no va a ser usado, podemos, o borrarlo de la configuración de Chef y desinstalarlo/deshabilitarlo manualmente, o marcar como estado deseado en Chef el estado contrario al que veníamos usando.
