@@ -81,12 +81,12 @@ El módulo yum nos permite gestionar el software instalado mediante yum en siste
 
  - El siguiente comando actualiza todos los paquetes instalados a la última versión
 
-    ansible GROUP -b -K -m yum -a "name=* state=latest"
+    `ansible GROUP -b -K -m yum -a "name=* state=latest"`
 
  - El siguiente comando instala la última versión el paquete _elinks_ en el grupo indicado. Si el paquete ya está instalado, se asegura de que esté en la última versión y si no lo está lo actualiza.
 
-    ansible GROUP -b -K -m yum -a "name=elinks state=latest"
+    `ansible GROUP -b -K -m yum -a "name=elinks state=latest"`
 
  - Si por ejemplo quisiésemos desinstalar el paquete, el comando a usar sería el siguiente:
 
-    ansible GROUP -b -K -m yum -a "name=elinks state=removed"
+    `ansible GROUP -b -K -m yum -a "name=elinks state=removed"`
