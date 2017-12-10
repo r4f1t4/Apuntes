@@ -17,11 +17,22 @@ Donde:
 El comando `ansible` tiene otros muchos modificadores que podemos consultar con `ansible --help`. Por ejemplo
   - `-k` o `--ask-pass` que nos preguntará por la password para conectarnos a las máquinas del grupo indicado.
 
+Definiendo grupos en _Ansible_
+------------------------------
+
 Para definir un grupo, podemos editar el fichero hosts de ansible. Por defecto está ubicado en `/etc/ansible/hosts`. Los nombres de los grupos se encierran entre corchetes \[GRUPO\] y a continuación ponemos en una línea cada host que corresponda a ese grupo. Un host puede pertenecer a más de un grupo.
 
 Para ver que máquinas corresponden a un grupo usamos el siguiente comando:
 
     ansible GROUP --list-hosts
+
+No es necesario usar el archivo hosts por defecto de Ansible. Podemos indicar el archivo que queramos con el modificador -i, por ejemplo:
+
+    ansible GROUP -i HostsFile -u USER -k -m ping
+
+El anterior comando se ejecuta contra el grupo _GROUP_ definido en el fichero _HostFile_ usando el usuario _USER_ además, el modificador `-k` hace que se pregunte la password del usuario.
+
+Además, en el fichero hosts podemos incluir variables que pueden ser usadas luego en los comandos ad-hoc o en los playbooks. Para más información de los formatos aceptables del fichero hosts de ansible revisar el [capítulo de inventario](http://docs.ansible.com/ansible/latest/intro_inventory.html) del manual de ansible.
 
 El módulo ping
 --------------
@@ -34,7 +45,7 @@ La sintaxis del comando es:
 
 Este comando nos debería devolver una salida como la siguiente, en la que todos los nodos menos uno responden a ping:
 
-```
+```json
 server2.example.com | SUCCESS => {
     "changed": false, 
     "ping": "pong"
@@ -90,3 +101,22 @@ El módulo yum nos permite gestionar el software instalado mediante yum en siste
  - Si por ejemplo quisiésemos desinstalar el paquete, el comando a usar sería el siguiente:
 
     ansible GROUP -b -K -m yum -a "name=elinks state=removed"
+
+### El módulo _setup_
+
+El módulo _setup_ nos permite obtener datos de hosts remotos.
+
+    ansible GROUP -m setup
+
+El anterior comando nos muestra toda la información que tiene de los nodos que están dentro de _GROUP_ en formato json. Podemos filtrar la salida para mostrar sólo la parte que nos interesa de la siguiente forma:
+
+    ansible GROUP -m setup -a "filter=ansible_*_mb"
+
+El anterior comando nos mostrará sólo lo que cumpla con la máscara. En ese caso información de la memoria ram y la cache.
+
+### Otros módulos
+
+Otros módulos que pueden ser interesantes son los siguientes:
+
+ - **fetch** similar a _copy_ pero en vez de copiar un fichero desde local a remoto, obtiene un fichero desde remoto hacia local.
+ - **file** Nos permite modificar los atributos de un fichero. Esto es, permisos, pertenencia a usuario o grupo, contexto de selinux, etc.
