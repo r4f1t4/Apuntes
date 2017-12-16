@@ -38,6 +38,23 @@ Ejemplo:
     gid: 7000
 ``` 
 
+Módulo htpasswd
+---------------
+
+El módulo [htpasswd](http://docs.ansible.com/ansible/latest/htpasswd_module.html) permite configurar usuarios para páginas web corriendo bajo Apache o Ngnix. 
+
+Ejemplo:
+
+```yaml
+- htpasswd:
+    path: /etc/nginx/passwdfile
+    name: janedoe
+    password: '9s36?;fyNp'
+    owner: root
+    group: www-data
+    mode: 0640
+```
+
 Módulo command 
 --------------
 
@@ -66,6 +83,18 @@ El apartado _args:_ es una forma de incluir los argumentos de un módulo en un p
   command: /usr/bin/make_database.sh arg1 arg2 creates=/path/to/database
 ```
 
+Módulo shell
+------------
+
+El módulo [shell](http://docs.ansible.com/ansible/latest/shell_module.html) es muy parecido al módulo command, pero ejecuta los comandos a través de una una shell (/bin/sh), por lo que determinadas opciones, como redirecciones y variables de entorno están disponibles.
+
+Ejemplo:
+
+```yaml
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: somescript.sh >> somelog.txt
+```
+
 Módulo copy
 -----------
 
@@ -86,10 +115,26 @@ Ejemplo:
 
 Para descargar ficheros de máquinas remotas podemos usar el módulo [fetch](http://docs.ansible.com/ansible/latest/fetch_module.html). Este módulo nos deja los ficheros descargados organizados por nombre de máquina. 
 
-Modulo get_url
+Módulo unarchive
+----------------
+
+El módulo [unarchive](http://docs.ansible.com/ansible/latest/unarchive_module.html) nos permite descomprimir un arvhivo en la máquina de destino. El archivo puede estar ya en la máquina, en ese caso lo indicaremos con la opción `remote_src: yes`. Por defecto, el módulo _unarchive_ asume que el fichero está en la workstation y lo transfiere a los servidores de destino.
+
+Ejemplo:
+
+```yaml
+- name: Extract foo.tgz into /var/lib/foo
+  unarchive:
+    src: foo.tgz
+    dest: /var/lib/foo
+```
+
+
+
+Módulo get\_url
 --------------
 
-El módulo [get_url](http://docs.ansible.com/ansible/latest/get_url_module.html) permite descargar archivos desde servicdores http, https o ftp en los servidores remotos.
+El módulo [get\_url](http://docs.ansible.com/ansible/latest/get_url_module.html) permite descargar archivos desde servicdores http, https o ftp en los servidores remotos.
 
 
 Ejemplo:
@@ -103,21 +148,96 @@ Ejemplo:
     mode: 0440
 ```
 
-Modulo htpasswd
----------------
 
-El módulo [htpasswd](http://docs.ansible.com/ansible/latest/htpasswd_module.html) permite configurar usuarios para páginas web corriendo bajo Apache o Ngnix. 
+Módulo lineinfile
+-----------------
+
+El módulo [lineinfile](http://docs.ansible.com/ansible/latest/lineinfile_module.html) nos permite asegurarnos de que una línea dentro de un fichero dado existe o no. Además, también nos permite cambiar una sola línea dentro de un fichero.
+
+Para editar varias líneas similares, podemos usar el módulo [replace](http://docs.ansible.com/ansible/latest/replace_module.html) y para insertar o cambiar un bloque de líneas el módulo [blockinfile](http://docs.ansible.com/ansible/latest/lineinfile_module.html).
+
+Normalmente al usar este módulo especificaremos una expresión regular mediante la opción _regexp:_. Ansible buscará todas las líneas que coincidan, y sólo la última coincidencia será cambiada.
+
+Ejemplos:
+
+Este ejemplo busca la línea que empiece por "SELINUX=" y la cambia por "SELINUX=enforcing"
+
+```yaml
+- lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=enforcing'
+```
+
+Este ejemplo borra la última línea del fichero /etc/sudoers que empiece por "%wheel"
+
+```yaml
+- lineinfile:
+    path: /etc/sudoers
+    state: absent
+    regexp: '^%wheel'
+```
+
+Módulo ping
+-----------
+
+El módulo [ping](http://docs.ansible.com/ansible/latest/ping_module.html) nos permite comprobar la conectividad de los equipos.
 
 Ejemplo:
 
 ```yaml
-- htpasswd:
-    path: /etc/nginx/passwdfile
-    name: janedoe
-    password: '9s36?;fyNp'
-    owner: root
-    group: www-data
-    mode: 0640
+- ping
 ```
 
+Módulo script
+-------------
 
+El módulo [script](http://docs.ansible.com/ansible/latest/script_module.html) transfiere el script dado desde la workstation hasta los servidores y lo ejecuta.
+
+```yaml
+# Run a script that creates a file, but only if the file is not yet created
+- script: /some/local/create_file.sh --some-arguments 1234
+  args:
+    creates: /the/created/file.txt
+```
+
+Módulo service
+--------------
+
+El módulo [service](http://docs.ansible.com/ansible/latest/service_module.html) nos permite controlar servicios corriendo en máquinas remotas.
+
+Ejemplo:
+
+```yaml
+- service:
+    name: httpd
+    state: started
+```
+
+Módulo yum
+----------
+
+El módulo [yum](http://docs.ansible.com/ansible/latest/yum_module.html) nos permite gestionar software en equipos que usen yum como gestor de paquetes, como por ejemplo RedHat linux o Centos.
+
+Ejemplo:
+
+```
+- name: install the latest version of Apache
+  yum:
+    name: httpd
+    state: latest
+```
+
+Módulo apt
+----------
+
+Similar al módulo _yum_, el módulo [apt](http://docs.ansible.com/ansible/latest/yum_module.html) gestiona software en equipos que usen apt como gestor de paquetes. (Debian, Ubuntu...)
+
+Ejemplo:
+
+```yaml
+- name: Update repositories cache and install "foo" package
+  apt:
+    name: foo
+    update_cache: yes
+```
