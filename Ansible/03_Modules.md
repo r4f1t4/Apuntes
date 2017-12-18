@@ -115,10 +115,76 @@ Ejemplo:
 
 Para descargar ficheros de máquinas remotas podemos usar el módulo [fetch](http://docs.ansible.com/ansible/latest/fetch_module.html). Este módulo nos deja los ficheros descargados organizados por nombre de máquina. 
 
+Módulo file
+-----------
+
+El módulo [file](http://docs.ansible.com/ansible/latest/file_module.html) nos permite manipular archivos. Entre sus posibilidades están la creación y el borrado de archivos y directorios, definir sus atributos, sus permisos, etc.
+
+Ejemplo:
+
+```yaml
+- file:
+    path: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: 0644
+```
+
+Módulo unarchive
+----------------
+
+El módulo [unarchive](http://docs.ansible.com/ansible/latest/unarchive_module.html) nos permite descomprimir un arvhivo en la máquina de destino. El archivo puede estar ya en 4
+```
+
 Módulo unarchive
 ----------------
 
 El módulo [unarchive](http://docs.ansible.com/ansible/latest/unarchive_module.html) nos permite descomprimir un arvhivo en la máquina de destino. El archivo puede estar ya en la máquina, en ese caso lo indicaremos con la opción `remote_src: yes`. Por defecto, el módulo _unarchive_ asume que el fichero está en la workstation y lo transfiere a los servidores de destino.
+
+Ejemplo:
+
+```yaml
+- name: Extract foo.tgz into /var/lib/foo
+  unarchive:
+    src: foo.tgz
+    dest: /var/lib/foo
+```
+
+
+
+Módulo get\_url
+--------------
+
+El módulo [get\_url](http://docs.ansible.com/ansible/latest/get_url_module.html) permite descargar archivos desde servicdores http, https o ftp en los servidores remotos.
+
+
+Ejemplo:
+
+
+```yaml
+- name: Download foo.conf
+  get_url:
+    url: http://example.com/path/file.conf
+    dest: /etc/foo.conf
+    mode: 0440
+```
+
+
+Módulo lineinfile
+-----------------
+
+El módulo [lineinfile](http://docs.ansible.com/ansible/latest/lineinfile_module.html) nos permite asegurarnos de que una línea dentro de un fichero dado existe o no. Además, también nos permite cambiar una sola línea dentro de un fichero.
+
+Para editar varias líneas similares, podemos usar el módulo [replace](http://docs.ansible.com/ansible/latest/replace_module.html) y para insertar o cambiar un bloque de líneas el módulo [blockinfile](http://docs.ansible.com/ansible/latest/lineinfile_module.html).
+
+Normalmente al usar este módulo especificaremos una expresión regular mediante la opción _regexp:_. Ansible buscará todas las líneas que coincidan, y sólo la última coincidencia será cambiada.
+
+Ejemplos:
+
+Este ejemplo busca la línea que empiece por "SELINUX=" y la cambia por "SELINUX=enforcing"
+
+```yaml
+-la máquina, en ese caso lo indicaremos con la opción `remote_src: yes`. Por defecto, el módulo _unarchive_ asume que el fichero está en la workstation y lo transfiere a los servidores de destino.
 
 Ejemplo:
 
@@ -240,4 +306,25 @@ Ejemplo:
   apt:
     name: foo
     update_cache: yes
+```
+
+Módulo debug
+------------
+
+El módulo [debug](http://docs.ansible.com/ansible/latest/debug_module.html) nos permite mostrar textos durante la ejecución del playbook.
+
+Ejemplo:
+
+```yaml
+- debug:
+    msg: "System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}"
+```
+
+Si lo que queremos es mostrar la salida de un comando, lo de debemos hacer es almacenarla en una variable registro para poder mostrarla. Por ejemplo:
+
+```yaml
+  - command: echo "this is a test"
+    register: test
+  - debug:
+      msg: "El mensaje es {{ test.stdout }} y no debería haber salida de error: {{ test.stderr }}"
 ```
