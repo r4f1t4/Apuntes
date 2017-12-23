@@ -328,3 +328,4 @@ Si lo que queremos es mostrar la salida de un comando, lo de debemos hacer es al
   - debug:
       msg: "El mensaje es {{ test.stdout }} y no debería haber salida de error: {{ test.stderr }}"
 ```
+
