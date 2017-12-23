@@ -133,12 +133,6 @@ Ejemplo:
 Módulo unarchive
 ----------------
 
-El módulo [unarchive](http://docs.ansible.com/ansible/latest/unarchive_module.html) nos permite descomprimir un arvhivo en la máquina de destino. El archivo puede estar ya en 4
-```
-
-Módulo unarchive
-----------------
-
 El módulo [unarchive](http://docs.ansible.com/ansible/latest/unarchive_module.html) nos permite descomprimir un arvhivo en la máquina de destino. El archivo puede estar ya en la máquina, en ese caso lo indicaremos con la opción `remote_src: yes`. Por defecto, el módulo _unarchive_ asume que el fichero está en la workstation y lo transfiere a los servidores de destino.
 
 Ejemplo:
@@ -149,8 +143,6 @@ Ejemplo:
     src: foo.tgz
     dest: /var/lib/foo
 ```
-
-
 
 Módulo get\_url
 --------------
@@ -168,34 +160,6 @@ Ejemplo:
     dest: /etc/foo.conf
     mode: 0440
 ```
-
-
-Módulo lineinfile
------------------
-
-El módulo [lineinfile](http://docs.ansible.com/ansible/latest/lineinfile_module.html) nos permite asegurarnos de que una línea dentro de un fichero dado existe o no. Además, también nos permite cambiar una sola línea dentro de un fichero.
-
-Para editar varias líneas similares, podemos usar el módulo [replace](http://docs.ansible.com/ansible/latest/replace_module.html) y para insertar o cambiar un bloque de líneas el módulo [blockinfile](http://docs.ansible.com/ansible/latest/lineinfile_module.html).
-
-Normalmente al usar este módulo especificaremos una expresión regular mediante la opción _regexp:_. Ansible buscará todas las líneas que coincidan, y sólo la última coincidencia será cambiada.
-
-Ejemplos:
-
-Este ejemplo busca la línea que empiece por "SELINUX=" y la cambia por "SELINUX=enforcing"
-
-```yaml
--la máquina, en ese caso lo indicaremos con la opción `remote_src: yes`. Por defecto, el módulo _unarchive_ asume que el fichero está en la workstation y lo transfiere a los servidores de destino.
-
-Ejemplo:
-
-```yaml
-- name: Extract foo.tgz into /var/lib/foo
-  unarchive:
-    src: foo.tgz
-    dest: /var/lib/foo
-```
-
-
 
 Módulo get\_url
 --------------
