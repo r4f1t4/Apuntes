@@ -105,4 +105,105 @@ tasks:
   with_file:
     - /etc/redhat-release
     - /etc/resolv.conf
-    
+```
+
+Gestión de errores
+------------------
+
+Otro aspecto de los playbooks es la gestión de Errores. Por defecto, cuando una tarea falla en un playbook, la ejecución se detiene y nos devuelve un error. Este comportamiento lo podemos cambiar incluyendo la opción `ignore_errors: true` en la tarea que prevemos que pueda fallar. 
+
+Ejemplo desde la documentación de ansible:
+
+```yaml
+tasks:
+  - command: /bin/false
+    register: result
+    ignore_errors: True
+
+  - command: /bin/something
+    when: result|failed
+
+  # In older versions of ansible use |success, now both are valid but succeeded uses the correct tense.
+  - command: /bin/something_else
+    when: result|succeeded
+
+  - command: /bin/still/something_else
+    when: result|skipped
+```
+
+El ejemplo anterior nos muestra un esqueleto de cómo continuar en caso de error en una tarea que se prevé arriesgada, y a continuación realizar una acción u otra en base al resultado de la ejecución que queda almacenado en la variable _result_ mediante la opción ´register: result´
+
+### Bloques
+
+Dentro de la gestión de errores, Ansible soporta desde la versión 2.0 el concepto [blocks](http://docs.ansible.com/ansible/latest/playbooks_blocks.html). Una de las funciones de los bloques agrupar tareas, de modo que podemos aplicarles opciones o incluso condiciones al grupo.
+
+Ejemplo:
+
+```yaml
+   tasks:
+     - name: Install Apache
+       block:
+         - yum: name={{ item }} state=installed
+           with_items:
+             - httpd
+             - memcached
+         - template: src=templates/src.j2 dest=/etc/foo.conf
+         - service: name=bar state=started enabled=True
+       when: ansible_distribution == 'CentOS'
+       become: true
+       become_user: root
+```
+
+El anterior ejemplo habilita las opciones `become` y `become_user` para el bloque. Además, añade una condición a todo el bloque para que sólo se ejecute cuando la variable de ansible `ansible_distribution` tenga el valor _CentOS_.
+
+Los bloques también nos dan una funcionalidad similar a las sentencias _try - catch - continue_ habituales en los lenguajes de programación de la siguiente manera:
+
+Ejemplo:
+
+```yaml
+  tasks:
+   - name: Attempt and gracefull roll back demo
+     block:
+       - debug: msg='I execute normally'
+       - command: /bin/false
+       - debug: msg='I never execute, due to the above task failing'
+     rescue:
+       - debug: msg='I caught an error'
+       - command: /bin/false
+       - debug: msg='I also never execute :-('
+     always:
+       - debug: msg="this always executes"
+```
+
+El anterior ejemplo sacado de la web de Ansible es autoexplicativo. El bloque estándar `block:` se ejecuta siempre, pero sólo hasta el punto en donde sucede el error. El bloque `rescue:` se ejecuta sólo en caso de error. Y el bloque `always:` se ejecuta siempre.
+
+Tags
+----
+
+Aunque técnicamente nos son condicionales, otra forma de agrupar y controlar la ejecución de partes de un playbook es mediante [tags](http://docs.ansible.com/ansible/latest/playbooks_tags.html). Los tags nos permiten especificar que partes de un playbook se van a ejecutar con el siguiente comando
+
+    ansible-playbook --tags "tagName" playbookName.yml
+
+También podemos usar los _tags_ para excluir partes de un playbook de la siguiente forma:
+
+    ansible-playbook --tags "tagName" playbookName.yml
+
+Por último, el tag _allways_ se ejecutará siempre que no se excluya explicitamente; aunque no lo incluyamos al llamar al playbook.
+
+Ejemplo:
+
+```yaml
+- name: be sure ntp is installed
+  yum: name=ntp state=installed
+  tags: ntp
+
+- name: be sure ntp is configured
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify:
+    - restart ntpd
+  tags: ntp
+
+- name: be sure ntpd is running and enabled
+  service: name=ntpd state=started enabled=yes
+  tags: ntp
+```
